@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjektAK2TP", "ProjektAK2TP\ProjektAK2TP.csproj", "{8842F06E-5B26-4FB2-A282-5ED7BAD2830C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8842F06E-5B26-4FB2-A282-5ED7BAD2830C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8842F06E-5B26-4FB2-A282-5ED7BAD2830C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8842F06E-5B26-4FB2-A282-5ED7BAD2830C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8842F06E-5B26-4FB2-A282-5ED7BAD2830C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F67C8A47-7648-4C4E-8CE4-76E4A2C17748}
+	EndGlobalSection
+EndGlobal
