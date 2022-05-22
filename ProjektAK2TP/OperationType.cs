@@ -4,5 +4,6 @@ public enum OperationType
 {
     Barcode,
     Ssn,
-    Isbn
+    Isbn,
+    Traincode,
 }

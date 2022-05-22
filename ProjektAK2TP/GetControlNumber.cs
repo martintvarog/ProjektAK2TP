@@ -9,22 +9,11 @@ public static class GetControlNumberForCode
     private static List<int> ListEvenNumbers = new();
     public static OperationType _operationType;
 
-    private static int? CodeLenght()
-    {
-        return _operationType switch
-        {
-            OperationType.Barcode => 12,
-            OperationType.Ssn => 9,
-            OperationType.Isbn => 12,
-            _ => null
-        };
-    }
-
     //Read user's input and store it into _operationType 
     public static void DecideOperation()
     {
         Console.WriteLine(
-            $"Zvolte operaci. Zvolete {OperationType.Barcode} nebo {OperationType.Ssn} nebo {OperationType.Isbn}");
+            $"Zvolte operaci. Zvolete {OperationType.Barcode} nebo {OperationType.Ssn} nebo {OperationType.Isbn} nebo {OperationType.Traincode}");
 
         var operationAsString = Console.ReadLine();
 
@@ -35,6 +24,46 @@ public static class GetControlNumberForCode
         }
 
         Enum.TryParse(operationAsString, out _operationType);
+    }
+
+//Set CodeLenght for code  
+    private static int? CodeLenght()
+    {
+        return _operationType switch
+        {
+            OperationType.Barcode => 12,
+            OperationType.Ssn => 9,
+            OperationType.Isbn => 12,
+            OperationType.Traincode => 11,
+            _ => null
+        };
+    }
+
+//Put user input to list
+    private static void GetNumberInputToList(List<int> codeList)
+    {
+        for (int i = 0; i < CodeLenght(); i++)
+        {
+            switch (_operationType)
+            {
+                case OperationType.Barcode:
+                    Console.WriteLine($"Zadejte {i + 1}. cislo caroveho kodu");
+                    codeList.Add(Convert.ToInt32(Console.ReadLine()));
+                    break;
+                case OperationType.Ssn:
+                    Console.WriteLine($"Zadejte {i + 1}. cislo rodneho cisla");
+                    codeList.Add(Convert.ToInt32(Console.ReadLine()));
+                    break;
+                case OperationType.Isbn:
+                    Console.WriteLine($"Zadejte {i + 1}. cislo ISBN kodu");
+                    codeList.Add(Convert.ToInt32(Console.ReadLine()));
+                    break;
+                case OperationType.Traincode:
+                    Console.WriteLine($"Zadejte {i + 1}. cislo kodu pro zeleznicni vozidla");
+                    codeList.Add(Convert.ToInt32(Console.ReadLine()));
+                    break;
+            }
+        }
     }
 
     //Read user input and add to listOfOddNUmbers and listOfEvenNumbers
@@ -84,6 +113,31 @@ public static class GetControlNumberForCode
                 }
 
                 break;
+
+            case OperationType.Traincode:
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        var res = list[i] * 2;
+                        if (res >= 10)
+                        {
+                            var resString = res.ToString();
+                            var intList = resString.Select(x => Convert.ToInt32(x.ToString())).ToList();
+                            var result = intList[0] + intList[1];
+                            ListOddNumbers.Add(result);
+                        }
+                        else
+                        {
+                            ListOddNumbers.Add(res);
+                            continue;
+                        }
+                    }
+
+                    ListEvenNumbers.Add(list[i]);
+                }
+
+                break;
         }
     }
 
@@ -98,15 +152,11 @@ public static class GetControlNumberForCode
                 return listOdd.Sum() + listEven.Sum();
             case OperationType.Isbn:
                 return listOdd.Sum() + listEven.Sum();
+            case OperationType.Traincode:
+                return listOdd.Sum() + listEven.Sum();
             default:
                 return 0;
         }
-    }
-
-    private static int GetControlNumberForISBNCode()
-    {
-        var divideByTen = SumOddAndEvenList(ListOddNumbers, ListEvenNumbers) % 10;
-        return divideByTen != 0 ? 10 - divideByTen : 0;
     }
 
     //returns rounded up result of adding odd and even lists
@@ -117,7 +167,23 @@ public static class GetControlNumberForCode
         return (int) result * 10;
     }
 
-    //returns roundUpResult substract by sum of odd and even lists
+    //return control number for traincode using find closest nurmber divisible by 10
+    private static int GetControlNumberForTrainCodeCode()
+    {
+        var sumRes = SumOddAndEvenList(ListOddNumbers, ListEvenNumbers);
+        int closestHigherNumberDivisibleByTen = (sumRes + 10) - (sumRes % 10);
+        return closestHigherNumberDivisibleByTen - sumRes;
+    }
+
+
+//returns controlnumber for ISBN code
+    private static int GetControlNumberForISBNCode()
+    {
+        var sumOddAndEvenListModuloTen = SumOddAndEvenList(ListOddNumbers, ListEvenNumbers) % 10;
+        return sumOddAndEvenListModuloTen != 0 ? 10 - sumOddAndEvenListModuloTen : 0;
+    }
+
+//returns roundUpResult substract by sum of odd and even lists
     private static int? GetControlNumber()
     {
         switch (_operationType)
@@ -132,12 +198,12 @@ public static class GetControlNumberForCode
                 }
 
                 return result;
+            default:
+                return null;
         }
-
-        return null;
     }
 
-    //return ControlNumber
+//return ControlNumber
     public static int GetControlNumberForBarcode()
     {
         DecideOperation();
@@ -146,7 +212,7 @@ public static class GetControlNumberForCode
         return (int) GetControlNumber()!;
     }
 
-    //return ControlNumber for Ssn
+//return ControlNumber for Ssn
     public static int GetControlNumberForSsn()
     {
         DecideOperation();
@@ -155,6 +221,7 @@ public static class GetControlNumberForCode
         return (int) GetControlNumber()!;
     }
 
+//return ControlNumber for ISBN
     public static int GetControlNumberForISBN()
     {
         DecideOperation();
@@ -163,7 +230,16 @@ public static class GetControlNumberForCode
         return GetControlNumberForISBNCode();
     }
 
-    //Check validity of ControlNumber
+//return ControlNumber for TrainCode
+    public static int GetControlNumberForTrainCode()
+    {
+        DecideOperation();
+        GetNumberInputToList(Code);
+        GetOddAndEvenNumbersFromList(Code);
+        return GetControlNumberForTrainCodeCode();
+    }
+
+//Check validity of ControlNumber
     public static void CheckControlNumberForSsn()
     {
         var res = ListOddNumbers.Sum() - (ListEvenNumbers.Sum() + GetControlNumber());
@@ -174,29 +250,6 @@ public static class GetControlNumberForCode
         else
         {
             Console.WriteLine("Kontrola neuspesna");
-        }
-    }
-
-    //Put user input to list
-    private static void GetNumberInputToList(List<int> codeList)
-    {
-        for (int i = 0; i < CodeLenght(); i++)
-        {
-            switch (_operationType)
-            {
-                case OperationType.Barcode:
-                    Console.WriteLine($"Zadejte {i + 1}. cislo caroveho kodu");
-                    codeList.Add(Convert.ToInt32(Console.ReadLine()));
-                    break;
-                case OperationType.Ssn:
-                    Console.WriteLine($"Zadejte {i + 1}. cislo rodneho cisla");
-                    codeList.Add(Convert.ToInt32(Console.ReadLine()));
-                    break;
-                case OperationType.Isbn:
-                    Console.WriteLine($"Zadejte {i + 1}. cislo ISBN kodu");
-                    codeList.Add(Convert.ToInt32(Console.ReadLine()));
-                    break;
-            }
         }
     }
 }
