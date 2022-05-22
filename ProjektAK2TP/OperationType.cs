@@ -3,5 +3,6 @@
 public enum OperationType
 {
     Barcode,
-    Ssn
+    Ssn,
+    Isbn
 }
