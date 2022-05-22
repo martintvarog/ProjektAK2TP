@@ -1,0 +1,37 @@
+﻿@page "/counter"
+@using ProjektAK2TP
+
+<input @bind-value="UserInput" @bind-value:event="oninput" @onkeydown="CheckInput"></input>
+
+<h2>My List</h2>
+
+@code {
+
+    private string UserInput { get; set; }
+    public List<string> myList = new List<string> {"ItemOne"};
+    public string ResultBarcode = String.Empty;
+
+    private void CheckInput(KeyboardEventArgs keyEvent)
+    {
+        for (int i = 0; i < 12; i++)
+        {
+            if (keyEvent.Key == "Enter")
+            {
+                AddToList(UserInput);
+                UserInput = string.Empty;
+            }
+        }
+    }
+
+
+    private void AddToList(string str)
+    {
+        myList.Add(str);
+    }
+
+    private void ahoj()
+    {
+        List<string> Barcode = myList.ConvertAll(x => x.ToString());
+        ResultBarcode = string.Join(",", Barcode).Replace(",", "");
+    }
+}

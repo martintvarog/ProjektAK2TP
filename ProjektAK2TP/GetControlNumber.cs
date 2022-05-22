@@ -1,13 +1,13 @@
-﻿using System.Diagnostics;
-
-namespace ProjektAK2TP;
+﻿namespace ProjektAK2TP;
 
 public static class GetControlNumberForCode
 {
     private static List<int> Code = new();
+    private static List<string> Barcode = new();
     private static List<int> ListOddNumbers = new();
     private static List<int> ListEvenNumbers = new();
     public static OperationType _operationType;
+    public static string ResultBarcodeWithControlNumber { get; set; }
 
     //Read user's input and store it into _operationType 
     public static void DecideOperation()
@@ -27,7 +27,7 @@ public static class GetControlNumberForCode
     }
 
 //Set CodeLenght for code  
-    private static int? CodeLenght()
+    public static int? CodeLenght()
     {
         return _operationType switch
         {
@@ -209,6 +209,7 @@ public static class GetControlNumberForCode
         DecideOperation();
         GetNumberInputToList(Code);
         GetOddAndEvenNumbersFromList(Code);
+        GetBarcodeToString();
         return (int) GetControlNumber()!;
     }
 
@@ -251,5 +252,14 @@ public static class GetControlNumberForCode
         {
             Console.WriteLine("Kontrola neuspesna");
         }
+    }
+
+    public static void GetBarcodeToString()
+    {
+        DecideOperation();
+        GetNumberInputToList(Code);
+        GetOddAndEvenNumbersFromList(Code);
+        Barcode = Code.ConvertAll(x => x.ToString());
+        ResultBarcodeWithControlNumber = string.Join(",", Barcode).Replace(",", "");
     }
 }

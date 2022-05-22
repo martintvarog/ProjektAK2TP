@@ -1,7 +1,7 @@
 ﻿using ProjektAK2TP;
 
 //Barcode
-// Console.WriteLine($"Control number for barcode is: {GetControlNumberForCode.GetControlNumberForBarcode()}");
+ Console.WriteLine($"Control number for barcode is: {GetControlNumberForCode.GetControlNumberForBarcode()}");
 
 //SSN
 // Console.WriteLine($"Control number for ssn is: {GetControlNumberForCode.GetControlNumberForSsn()}");
@@ -10,6 +10,6 @@
 // //ISBN
 // Console.WriteLine($"Control number for ISBN is: {GetControlNumberForCode.GetControlNumberForISBN()}");
 
-
-//TrainCode
-Console.WriteLine($"Control number for TrainCode is: {GetControlNumberForCode.GetControlNumberForTrainCode()}");
+//
+// //TrainCode
+// Console.WriteLine($"Control number for TrainCode is: {GetControlNumberForCode.GetControlNumberForTrainCode()}");

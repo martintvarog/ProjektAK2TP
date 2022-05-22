@@ -1,0 +1,46 @@
+﻿@page "/"
+@using ProjektAK2TP
+
+<PageTitle>Index</PageTitle>
+
+
+<input @bind-value="UserInput" @bind-value:event="oninput" @onkeydown="CheckInput"></input>
+
+<h1 style="text-align: center">Zde je vas vygenerovany carovy kod</h1>
+
+<div style='text-align: center;'>
+    <img alt='Barcode Generator TEC-IT'
+         src='https://barcode.tec-it.com/barcode.ashx?data=@ResultBarcode&code=EAN13&translate-esc=true'/>
+</div>
+
+@code {
+
+    private string UserInput { get; set; }
+    public List<string> myList = new List<string> {"ItemOne"};
+    public string ResultBarcode = String.Empty;
+
+    private void CheckInput(KeyboardEventArgs keyEvent)
+    {
+        for (int i = 0; i < 12; i++)
+        {
+            if (keyEvent.Key == "Enter")
+            {
+                AddToList(UserInput);
+                UserInput = string.Empty;
+                ahoj();
+            }
+        }
+    }
+
+
+    private void AddToList(string str)
+    {
+        myList.Add(str);
+    }
+
+    private void ahoj()
+    {
+        List<string> Barcode = myList.ConvertAll(x => x.ToString());
+        ResultBarcode = string.Join(",", Barcode).Replace(",", "");
+    }
+}
