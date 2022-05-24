@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Include="BarcodeUI\barcode.cshtml" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\ProjektAK2TP\ProjektAK2TP.csproj" />
     </ItemGroup>
 

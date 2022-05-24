@@ -2,14 +2,13 @@
 
 //Barcode
  Console.WriteLine($"Control number for barcode is: {GetControlNumberForCode.GetControlNumberForBarcode()}");
-
-//SSN
+//
+// //SSN
 // Console.WriteLine($"Control number for ssn is: {GetControlNumberForCode.GetControlNumberForSsn()}");
 // GetControlNumberForCode.CheckControlNumberForSsn();
-
+//
 // //ISBN
 // Console.WriteLine($"Control number for ISBN is: {GetControlNumberForCode.GetControlNumberForISBN()}");
-
-//
+//  
 // //TrainCode
 // Console.WriteLine($"Control number for TrainCode is: {GetControlNumberForCode.GetControlNumberForTrainCode()}");

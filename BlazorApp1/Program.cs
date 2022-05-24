@@ -1,15 +1,9 @@
-using BlazorApp1.Data;
-using ProjektAK2TP;
-
-// //call get control number for barcode
-// GetControlNumberForCode.GetBarcodeToString();
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
 
