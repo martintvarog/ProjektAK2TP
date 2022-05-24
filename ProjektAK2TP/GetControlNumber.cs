@@ -213,6 +213,13 @@ public static class GetControlNumberForCode
         return (int) GetControlNumber()!;
     }
 
+    //return ControlNumber for UI
+    public static int GetControlNumberForBarcodeUI()
+    {
+        GetOddAndEvenNumbersFromList(Code);
+        return (int) GetControlNumber()!;
+    }
+
 //return ControlNumber for Ssn
     public static int GetControlNumberForSsn()
     {

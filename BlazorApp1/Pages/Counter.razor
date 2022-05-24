@@ -1,37 +1,31 @@
 ﻿@page "/counter"
-@using ProjektAK2TP
 
 <input @bind-value="UserInput" @bind-value:event="oninput" @onkeydown="CheckInput"></input>
 
 <h2>My List</h2>
 
+@foreach (var item in myList)
+{
+    <h3>@item</h3>
+}
+
 @code {
 
     private string UserInput { get; set; }
-    public List<string> myList = new List<string> {"ItemOne"};
-    public string ResultBarcode = String.Empty;
+    public List<string> myList = new List<string> { "ItemOne" };
 
     private void CheckInput(KeyboardEventArgs keyEvent)
     {
-        for (int i = 0; i < 12; i++)
+        if(keyEvent.Key == "Enter" && myList.Count <= 12)
         {
-            if (keyEvent.Key == "Enter")
-            {
-                AddToList(UserInput);
-                UserInput = string.Empty;
-            }
+            AddToList(UserInput);
+            UserInput = string.Empty;
         }
-    }
 
+    }
 
     private void AddToList(string str)
     {
         myList.Add(str);
-    }
-
-    private void ahoj()
-    {
-        List<string> Barcode = myList.ConvertAll(x => x.ToString());
-        ResultBarcode = string.Join(",", Barcode).Replace(",", "");
     }
 }
