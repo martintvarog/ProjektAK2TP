@@ -3,12 +3,12 @@
 
 <PageTitle>Index</PageTitle>
 
-<p style="text-align: center; padding-bottom: 5px">Zadejte 12 cisel pro vypocet kontrolni 13. cislice</p>
+<p style="text-align: center; padding-bottom: 5px">Zadejte 12 cisel pro vytvoreni caroveho kodu</p>
 <div style="text-align: center; padding-bottom: 5px">
     <input @bind-value="UserInput" @bind-value:event="oninput"/>
 </div>
 
-<p style="text-align: center">Zde je vas vygenerovany carovy kod</p>
+<p style="text-align: center; padding-bottom: 5px">Zde je vas vygenerovany carovy kod</p>
 
 @if (UserInput.Length == 12)
 {
@@ -18,15 +18,15 @@
     </div>
 }
 
-<p style="text-align: center">Zadejte 12 cisel pro vypocet kontrolni 13. cislice</p>
-<p style="text-align: center"> Pro zadani cisla klinete Enter</p>
+<p style="text-align: center ; padding-bottom: 5px; padding-top: 15px">Zadejte 12 cisel pro vypocet kontrolni 13. cislice</p>
+<p style="text-align: center; padding-bottom: 5px"> Pro zadani cisla klinete Enter</p>
 <div style="text-align: center; padding-bottom: 5px">
     <input @bind-value="UserInputInt" @bind-value:event="oninput" @onkeydown="CheckInputControlNumber"/>
 </div>
 
 
 <div>
-    <p style="text-align: center"> kontrolni cislice pro carovy kod je: @ControlNumber</p>
+    <p style="text-align: center; padding-bottom: 5px"> kontrolni cislice pro carovy kod je: @ControlNumber</p>
 </div>
 
 
