@@ -214,9 +214,9 @@ public static class GetControlNumberForCode
     }
 
     //return ControlNumber for UI
-    public static int GetControlNumberForBarcodeUI()
+    public static int GetControlNumberForBarcodeUI(List<int> list)
     {
-        GetOddAndEvenNumbersFromList(Code);
+        GetOddAndEvenNumbersFromList(list);
         return (int) GetControlNumber()!;
     }
 

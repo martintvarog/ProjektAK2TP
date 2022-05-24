@@ -2,12 +2,13 @@
 @using ProjektAK2TP
 
 <PageTitle>Index</PageTitle>
-<h2 style="text-align: center">Zadejte 12 cisel pro vypocet kontrolni 13. cislice</h2>
+
+<p style="text-align: center; padding-bottom: 5px">Zadejte 12 cisel pro vypocet kontrolni 13. cislice</p>
 <div style="text-align: center; padding-bottom: 5px">
-    <input @bind-value="UserInput" @bind-value:event="oninput" @onkeydown="CheckInput"/>
+    <input @bind-value="UserInput" @bind-value:event="oninput"/>
 </div>
 
-<h2 style="text-align: center">Zde je vas vygenerovany carovy kod</h2>
+<p style="text-align: center">Zde je vas vygenerovany carovy kod</p>
 
 @if (UserInput.Length == 12)
 {
@@ -17,6 +18,13 @@
     </div>
 }
 
+<p style="text-align: center">Zadejte 12 cisel pro vypocet kontrolni 13. cislice</p>
+<p style="text-align: center"> Pro zadani cisla klinete Enter</p>
+<div style="text-align: center; padding-bottom: 5px">
+    <input @bind-value="UserInputInt" @bind-value:event="oninput" @onkeydown="CheckInputControlNumber"/>
+</div>
+
+
 <div>
     <p style="text-align: center"> kontrolni cislice pro carovy kod je: @ControlNumber</p>
 </div>
@@ -25,24 +33,30 @@
 @code {
 
     private string UserInput { get; set; } = String.Empty;
-    private int ControlNumber = GetControlNumberForCode.GetControlNumberForBarcodeUI();
-    private List<int> codeList = new();
-    private bool nevim = false;
+    private string UserInputInt { get; set; } = String.Empty;
+    private int ControlNumber;
+    private List<int> CodeList = new();
 
-    private void CheckInput(KeyboardEventArgs keyEvent)
+
+    private void CheckInputControlNumber(KeyboardEventArgs keyEvent)
     {
         if (keyEvent.Key == "Enter")
         {
-            AddToList(UserInput);
-            UserInput = string.Empty;
+            AddToList(UserInputInt);
+            UserInputInt = string.Empty;
+        }
+        if (CodeList.Count == 12)
+        {
+            ControlNumber = GetControlNumberForCode.GetControlNumberForBarcodeUI(CodeList);
+            CodeList.Clear();
         }
     }
 
     private void AddToList(string input)
     {
-        for (int i = 0; i < UserInput.Length; i++)
+        for (int i = 0; i < UserInputInt.Length; i++)
         {
-            codeList.Add(Convert.ToInt32(input.Split("")));
+            CodeList.Add(Convert.ToInt32(input));
         }
     }
 
