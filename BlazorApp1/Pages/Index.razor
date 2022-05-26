@@ -2,13 +2,15 @@
 @using ProjektAK2TP
 
 <PageTitle>Index</PageTitle>
+<strong>
+    <p style="text-align: center; padding-bottom: 5px">Zadejte 12 čísel pro vytvoření čárového kódu</p>
+</strong>
 
-<p style="text-align: center; padding-bottom: 5px">Zadejte 12 cisel pro vytvoreni caroveho kodu</p>
 <div style="text-align: center; padding-bottom: 5px">
     <input @bind-value="UserInput" @bind-value:event="oninput"/>
 </div>
 
-<p style="text-align: center; padding-bottom: 5px">Zde je vas vygenerovany carovy kod</p>
+<p style="text-align: center; padding-bottom: 5px">Zde je Váš vygenerovaný čárový kód</p>
 
 @if (UserInput.Length == 12)
 {
@@ -18,15 +20,18 @@
     </div>
 }
 
-<p style="text-align: center ; padding-bottom: 5px; padding-top: 15px">Zadejte 12 cisel pro vypocet kontrolni 13. cislice</p>
-<p style="text-align: center; padding-bottom: 5px"> Pro zadani cisla klinete Enter</p>
+<strong>
+    <p style="text-align: center ; padding-bottom: 5px; padding-top: 50px">Zadejte 12 čísel pro výpočet kontrolní 13. číslice</p>
+
+</strong>
+<p style="text-align: center; padding-bottom: 5px"> Po zadání čísla kliněte Enter</p>
 <div style="text-align: center; padding-bottom: 5px">
     <input @bind-value="UserInputInt" @bind-value:event="oninput" @onkeydown="CheckInputControlNumber"/>
 </div>
 
 
 <div>
-    <p style="text-align: center; padding-bottom: 5px"> kontrolni cislice pro carovy kod je: @ControlNumber</p>
+    <p style="text-align: center; padding-bottom: 5px"> kontrolní číslice pro čárový kód je: @ControlNumber</p>
 </div>
 
 
@@ -42,7 +47,7 @@
     {
         if (keyEvent.Key == "Enter")
         {
-            AddToList(UserInputInt);
+            AddToString(UserInputInt);
             UserInputInt = string.Empty;
         }
         if (CodeList.Count == 12)
@@ -52,12 +57,14 @@
         }
     }
 
-    private void AddToList(string input)
+    private void AddToString(string input)
     {
-        for (int i = 0; i < UserInputInt.Length; i++)
+        for (int i = 0; i < input.Length; i++)
         {
-            CodeList.Add(Convert.ToInt32(input));
+            int numberInput = (int) Char.GetNumericValue(input[i]);
+            CodeList.Add(numberInput);
         }
+        
     }
 
 }
