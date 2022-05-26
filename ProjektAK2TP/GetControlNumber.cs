@@ -206,10 +206,8 @@ public static class GetControlNumberForCode
 //return ControlNumber
     public static int GetControlNumberForBarcode()
     {
-        DecideOperation();
         GetNumberInputToList(Code);
         GetOddAndEvenNumbersFromList(Code);
-        GetBarcodeToString();
         return (int) GetControlNumber()!;
     }
 
@@ -223,7 +221,6 @@ public static class GetControlNumberForCode
 //return ControlNumber for Ssn
     public static int GetControlNumberForSsn()
     {
-        DecideOperation();
         GetNumberInputToList(Code);
         GetOddAndEvenNumbersFromList(Code);
         return (int) GetControlNumber()!;
@@ -232,7 +229,6 @@ public static class GetControlNumberForCode
 //return ControlNumber for ISBN
     public static int GetControlNumberForISBN()
     {
-        DecideOperation();
         GetNumberInputToList(Code);
         GetOddAndEvenNumbersFromList(Code);
         return GetControlNumberForISBNCode();
@@ -241,7 +237,6 @@ public static class GetControlNumberForCode
 //return ControlNumber for TrainCode
     public static int GetControlNumberForTrainCode()
     {
-        DecideOperation();
         GetNumberInputToList(Code);
         GetOddAndEvenNumbersFromList(Code);
         return GetControlNumberForTrainCodeCode();
