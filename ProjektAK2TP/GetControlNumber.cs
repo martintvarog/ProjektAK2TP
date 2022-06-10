@@ -7,7 +7,7 @@ public static class GetControlNumberForCode
     private static List<int> ListOddNumbers = new();
     private static List<int> ListEvenNumbers = new();
     public static OperationType _operationType;
-    public static string ResultBarcodeWithControlNumber { get; set; }
+    public static string? ResultBarcodeWithControlNumber { get; set; }
 
     //Read user's input and store it into _operationType 
     public static void DecideOperation()
