@@ -1,0 +1,54 @@
+﻿@page "/traincode"
+@using ProjektAK2TP
+
+<PageTitle>Index</PageTitle>
+<h3 style="text-align: center; padding-bottom: 15px; padding-top: 5px">Číslování železničních vozidel</h3>
+
+<strong>
+    <p style="text-align: center ; padding-bottom: 5px; padding-top: 15px">Zadejte 11 čísel pro výpočet kontrolní 12. číslice železničního vozidla</p>
+
+</strong>
+<p style="text-align: center; padding-bottom: 5px"> Po zadání 11 místného čísla kliněte Enter</p>
+<div style="text-align: center; padding-bottom: 5px">
+    <input @bind-value="UserInput" @bind-value:event="oninput" @onkeydown="CheckInputControlNumber"/>
+</div>
+
+
+<div>
+    <p style="text-align: center; padding-top: 15px"> kontrolní číslice pro kod železníčního vozidla je: <b>@ControlNumber</b></p>
+</div>
+
+
+@code {
+
+    private string UserInput { get; set; } = String.Empty;
+    private int ControlNumber;
+    private List<int> CodeList = new();
+
+
+    private void CheckInputControlNumber(KeyboardEventArgs keyEvent)
+    {
+        if (keyEvent.Key == "Enter")
+        {
+            AddStringInputToList(UserInput, CodeList);
+        }
+        if (CodeList.Count == 11)
+        {
+            ControlNumber = GetControlNumberForCode.GetControlNumberForISBNUI(CodeList);
+            //clear Lists and inputField
+            CodeList.Clear();
+            GetControlNumberForCode.ClearList();
+            UserInput = string.Empty;
+        }
+    }
+
+    private void AddStringInputToList(string input, List<int> list)
+    {
+        for (int i = 0; i < input.Length; i++)
+        {
+            int numberInput = (int) Char.GetNumericValue(input[i]);
+            list.Add(numberInput);
+        }
+    }
+
+}

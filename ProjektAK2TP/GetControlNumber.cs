@@ -203,6 +203,13 @@ public static class GetControlNumberForCode
         }
     }
 
+    //clen listEven and listOdd numbers
+    public static void ClearList()
+    {
+        ListEvenNumbers.Clear();
+        ListOddNumbers.Clear();
+    }
+
 //return ControlNumber
     public static int GetControlNumberForBarcode()
     {
@@ -226,6 +233,13 @@ public static class GetControlNumberForCode
         return (int) GetControlNumber()!;
     }
 
+    //return ControlNumberSsn for UI
+    public static int GetControlNumberForSsnUI(List<int> list)
+    {
+        GetOddAndEvenNumbersFromList(list);
+        return (int) GetControlNumber()!;
+    }
+
 //return ControlNumber for ISBN
     public static int GetControlNumberForISBN()
     {
@@ -234,11 +248,25 @@ public static class GetControlNumberForCode
         return GetControlNumberForISBNCode();
     }
 
+//return ControlNumber for ISBN UI
+    public static int GetControlNumberForISBNUI(List<int> list)
+    {
+        GetOddAndEvenNumbersFromList(list);
+        return GetControlNumberForISBNCode();
+    }
+
 //return ControlNumber for TrainCode
     public static int GetControlNumberForTrainCode()
     {
         GetNumberInputToList(Code);
         GetOddAndEvenNumbersFromList(Code);
+        return GetControlNumberForTrainCodeCode();
+    }
+
+    //return ControlNumber for TrainCode UI
+    public static int GetControlNumberForTrainCodeUI(List<int> list)
+    {
+        GetOddAndEvenNumbersFromList(list);
         return GetControlNumberForTrainCodeCode();
     }
 

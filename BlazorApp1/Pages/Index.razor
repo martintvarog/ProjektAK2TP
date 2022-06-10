@@ -1,71 +1,8 @@
 ﻿@page "/"
-@using ProjektAK2TP
 
 <PageTitle>Index</PageTitle>
-<h3 style="text-align: center; padding-bottom: 15px; padding-top: 5px">Generátor čárového kódu</h3>
-<strong>
-    <p style="text-align: center; padding-bottom: 5px">Zadejte 12 čísel pro vytvoření čárového kódu</p>
-</strong>
+<h3><b>Zapoctova prace do predmetu AK2TP</b></h3>
+<h4 style="padding-top: 5px">School project for AK2TP course</h4>
 
-<div style="text-align: center; padding-bottom: 5px">
-    <input @bind-value="UserInput" @bind-value:event="oninput"/>
-</div>
-
-<p style="text-align: center; padding-bottom: 5px">Zde je Váš vygenerovaný čárový kód</p>
-
-@if (UserInput.Length == 12)
-{
-    <div style='text-align: center;'>
-        <img alt='Barcode Generator TEC-IT'
-             src='https://barcode.tec-it.com/barcode.ashx?data=@UserInput&code=EAN13&translate-esc=true'/>
-    </div>
-}
-
-<strong>
-    <p style="text-align: center ; padding-bottom: 5px; padding-top: 50px">Zadejte 12 čísel pro výpočet kontrolní 13. číslice</p>
-
-</strong>
-<p style="text-align: center; padding-bottom: 5px"> Po zadání 12 místného čísla kliněte Enter</p>
-<div style="text-align: center; padding-bottom: 5px">
-    <input @bind-value="UserInputInt" @bind-value:event="oninput" @onkeydown="CheckInputControlNumber"/>
-</div>
-
-
-<div>
-    <p style="text-align: center; padding-bottom: 5px"> kontrolní číslice pro čárový kód je: @ControlNumber</p>
-</div>
-
-
-@code {
-
-    private string UserInput { get; set; } = String.Empty;
-    private string UserInputInt { get; set; } = String.Empty;
-    private int ControlNumber;
-    private List<int> CodeList = new();
-
-
-    private void CheckInputControlNumber(KeyboardEventArgs keyEvent)
-    {
-        if (keyEvent.Key == "Enter")
-        {
-            AddToString(UserInputInt);
-            UserInputInt = string.Empty;
-        }
-        if (CodeList.Count == 12)
-        {
-            ControlNumber = GetControlNumberForCode.GetControlNumberForBarcodeUI(CodeList);
-            CodeList.Clear();
-        }
-    }
-
-    private void AddToString(string input)
-    {
-        for (int i = 0; i < input.Length; i++)
-        {
-            int numberInput = (int) Char.GetNumericValue(input[i]);
-            CodeList.Add(numberInput);
-        }
-        
-    }
-
-}
+<p style="padding-top: 15px; text-align: justify"> V teto zapoctove praci jsem zpracoval program, ktery zvladne vypocitat kontrolni cislici pro 4 ruzne kody. Take umi vytvorit funkcni carovy kod typu EAN13.</p>
+<a href="https://github.com/martintvarog/ProjektAK2TP">Zdrojovy kod je k dispozici zde</a>

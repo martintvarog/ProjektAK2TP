@@ -1,0 +1,72 @@
+﻿@page "/barcode"
+@using ProjektAK2TP
+
+<PageTitle>Index</PageTitle>
+<h3 style="text-align: center; padding-bottom: 15px; padding-top: 5px">Generátor čárového kódu</h3>
+<strong>
+    <p style="text-align: center; padding-bottom: 5px">Zadejte 12 čísel pro vytvoření čárového kódu</p>
+</strong>
+
+<div style="text-align: center; padding-bottom: 5px">
+    <input @bind-value="UserInputBarcodeGenerator" @bind-value:event="oninput"/>
+</div>
+
+<p style="text-align: center; padding-bottom: 5px">Zde je Váš vygenerovaný čárový kód</p>
+
+@if (UserInputBarcodeGenerator.Length == 12)
+{
+    <div style='text-align: center;'>
+        <img alt='Barcode Generator TEC-IT'
+             src='https://barcode.tec-it.com/barcode.ashx?data=@UserInputBarcodeGenerator&code=EAN13&translate-esc=true'/>
+    </div>
+}
+
+<strong>
+    <p style="text-align: center ; padding-bottom: 5px; padding-top: 50px">Zadejte 12 čísel pro výpočet kontrolní 13. číslice čárového kódu</p>
+
+</strong>
+<p style="text-align: center; padding-bottom: 5px"> Po zadání 12 místného čísla kliněte Enter</p>
+<div style="text-align: center; padding-bottom: 5px">
+    <input @bind-value="UserInputBarcode" @bind-value:event="oninput" @onkeydown="CheckInputControlNumber"/>
+</div>
+
+
+<div>
+    <p style="text-align: center; padding-bottom: 5px"> kontrolní číslice pro čárový kód je: <b>@ControlNumberBarcode</b></p>
+</div>
+
+
+@code {
+
+    private string UserInputBarcodeGenerator { get; set; } = String.Empty;
+    private string UserInputBarcode { get; set; } = String.Empty;
+    private int ControlNumberBarcode;
+    private List<int> CodeList = new();
+
+
+    private void CheckInputControlNumber(KeyboardEventArgs keyEvent)
+    {
+        if (keyEvent.Key == "Enter")
+        {
+            AddStringInputToList(UserInputBarcode, CodeList);
+        }
+        if (CodeList.Count == 12)
+        {
+            ControlNumberBarcode = GetControlNumberForCode.GetControlNumberForBarcodeUI(CodeList);
+    //clear Lists and inputField
+            CodeList.Clear();
+            GetControlNumberForCode.ClearList();
+            UserInputBarcode = string.Empty;
+        }
+    }
+
+    private void AddStringInputToList(string input, List<int> list)
+    {
+        for (int i = 0; i < input.Length; i++)
+        {
+            int numberInput = (int) Char.GetNumericValue(input[i]);
+            list.Add(numberInput);
+        }
+    }
+
+}
